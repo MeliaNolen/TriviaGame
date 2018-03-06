@@ -18,29 +18,33 @@
     <body>
         <script class="text/javascript">
             $(document).ready(function () {
-                // Countdown 
                 
-                var time = 10;
-                var intervalId;
                 
+                
+                // Hiding everything but start button
                 $("#main-container").hide();
                 $(".card").hide();
-
-
+                
+                // Adding functionality to start button
                 $("#start-button").on("click", function() {
                     $("#main-container").show();
                     $("#start-container").hide();
                     startTime();
                 });
-                
+
+                // Time countdown 
+                var time = 10;
+                var intervalId;
                 function countdown() {
                     time--;
                     $(".time").html("Time Remaining: " + time);
                     if (time === 0) {
                         clearInterval(intervalId);
-                        alert("Game Over");
                         gradeAnswers();
                         displayScore();
+                        $(".card").show();
+                        $("#main-container").hide();
+                        $(".time").hide();
                     }
                 };
                 function startTime() {
@@ -48,9 +52,7 @@
                     intervalId = setInterval(countdown, 1000);
                 };
                 
-
-
-
+                // Calculates Score
                 var correctCount = 0;
                 var incorrectCount = 0;
                 var unansweredCount = 0;
@@ -106,9 +108,10 @@
                     else if (answers[3] !== "191") {
                         incorrectCount++;
                     };
-
                 }
 
+                // Submit button functionality
+                //clearing the score before and after to make sure scores don't continue to add up
                 $("#submit").on("click", function() {
                     correctCount = 0;
                     incorrectCount = 0;
@@ -116,6 +119,9 @@
                     answers = [];
                     gradeAnswers();
                     displayScore();
+                    $(".card").show();
+                    $("#main-container").hide();
+                    $(".time").hide();
                     correctCount = 0;
                     incorrectCount = 0;
                     unansweredCount = 0;
@@ -123,12 +129,13 @@
 
                 });
 
+                // Displaying score
                 function displayScore() {
                     $(".score").html("Correct Answers: " + correctCount + "<br>");
                     $(".score").append("Incorrect Answers: " + incorrectCount + "<br>");
                     $(".score").append("Unanswered: " + unansweredCount);
                 }
-                displayScore();
+                
                 
 
             
