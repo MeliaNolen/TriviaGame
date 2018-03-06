@@ -11,33 +11,144 @@
         <!-- Linking Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
+        <!-- Linking Bootstrap Theme -->
+        <link rel="stylesheet" href="assets/css/bootstrap.css">
     </head>
 
     <body>
         <script class="text/javascript">
-        
-        
-        
-        
+            $(document).ready(function () {
+                // Countdown 
+                
+                var time = 10;
+                var intervalId;
+                
+                
+                function countdown() {
+                    time--;
+                    $(".time").html("Time Remaining: " + time);
+                    if (time === 0) {
+                        clearInterval(intervalId);
+                        alert("Game Over");
+                        gradeAnswers();
+                        displayScore();
+                    }
+                };
+                function start() {
+                    clearInterval(intervalId);
+                    intervalId = setInterval(countdown, 1000);
+                };
+                start();
+
+
+
+                var correctCount = 0;
+                var incorrectCount = 0;
+                var unansweredCount = 0;
+                var answers = [];
+                
+                function gradeAnswers() {
+                    for (var i = 1; i < 3; i++) {
+                        var val = $('input:radio[name="q'+i+'"]:checked').val(); 
+                        answers.push(val);
+                    }
+                    console.log(answers);
+                    
+                    // Grading question 1
+                    if (answers[0] === "7") {
+                        correctCount++;
+                    }
+                    else if (answers[0] === undefined) {
+                        unansweredCount++;
+                    }
+                    else if (answers[0] !== "7") {
+                        incorrectCount++;
+                    }
+
+                    //Grading question 2
+
+                }
+
+                function displayScore() {
+                    $(".score").html("Correct Answers: " + correctCount + "<br>");
+                    $(".score").append("Incorrect Answers: " + incorrectCount + "<br>");
+                    $(".score").append("Unanswered: " + unansweredCount);
+                }
+                displayScore();
+                
+
+            
+            });
         </script>
 
-        <!-- Question 1 -->
-        <div class="question">
-            <p>Question 1</p>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">1</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">2</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                <label class="form-check-label" for="inlineRadio3">3</label>
-              </div>
-        </div>
+        <!-- Time -->
+        <h3 class="time"></h3>
+        
+        <!-- Jumbotron holding questions -->
+        <div class="jumbotron">
+            <h2 class="display-3">Prime Numbers Trivia</h2>
+            <p class="lead">
 
+                <!-- Question 1 -->
+                <div class="question1">
+                    <h3>1. Which of the following is a prime number?</h3>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="q1" id="optionsRadios1" value="7">7
+                            </label>
+                        </div>
+                        <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="q1" id="optionsRadios1" value="12">12
+                                </label>
+                        </div> 
+                        <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="q1" id="optionsRadios1" value="4">4
+                                </label>
+                        </div>     
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question2">
+                    <h3>2. Which of the following is a prime number?</h3>
+                    <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="q2" id="optionsRadios1" value="3">3
+                            </label>
+                        </div>
+                        <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="q2" id="optionsRadios1" value="15">15
+                                </label>
+                        </div> 
+                        <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="q2" id="optionsRadios1" value="32">32
+                                </label>
+                        </div>  
+                </div>
+
+
+
+        
+
+
+            </p>
+            <hr class="my-4">
+            <p class="lead">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </p>
+        </div>
+        
+        
+        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Score</div>
+            <div class="card-body">
+                <h4 class="card-title score"></h4>
+            </div>
+        </div>
+    
 
     </body>
 </html>
