@@ -100,6 +100,20 @@
 
                 }
 
+                $("#submit").on("click", function() {
+                    correctCount = 0;
+                    incorrectCount = 0;
+                    unansweredCount = 0;
+                    answers = [];
+                    gradeAnswers();
+                    displayScore();
+                    correctCount = 0;
+                    incorrectCount = 0;
+                    unansweredCount = 0;
+                    answers = [];
+
+                });
+
                 function displayScore() {
                     $(".score").html("Correct Answers: " + correctCount + "<br>");
                     $(".score").append("Incorrect Answers: " + incorrectCount + "<br>");
@@ -206,7 +220,7 @@
             </p>
             <hr class="my-4">
             <p class="lead">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="submit"class="btn btn-primary">Submit</button>
             </p>
         </div>
         
